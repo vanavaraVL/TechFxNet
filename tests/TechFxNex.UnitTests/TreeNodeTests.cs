@@ -4,7 +4,6 @@ using FluentAssertions;
 using Moq;
 using TechFxNet.Application.Queries;
 using TechFxNet.Domain.Entities;
-using TechFxNet.Domain.Models;
 using TechFxNet.Infrastructure.Repositories;
 
 namespace TechFxNex.UnitTests;
@@ -21,26 +20,25 @@ public class TreeNodeTests
         [Test, CustomAutoData]
         public async Task Get_tree_should_build_tree_view(GetTreeQueryHandler sut,
             [Frozen] ITreeNodeRepository repository,
-            GetTreeQuery request,
-            PaginatedResult<JournalEntity> response)
+            GetTreeQuery request)
         {
             // ARRANGE
             var nodes = new List<NodeEntity>()
             {
-                new NodeEntity()
+                new()
                 {
                     Id = 1,
                     ParentNodeId = null,
                     NodeName = "Root",
                     ChildNodes = new List<NodeEntity>()
                     {
-                        new NodeEntity()
+                        new()
                         {
                             Id = 2,
                             ParentNodeId = 1,
                             NodeName = "Child"
                         },
-                        new NodeEntity()
+                        new()
                         {
                             Id = 3,
                             ParentNodeId = 1,
