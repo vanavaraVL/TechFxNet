@@ -20,6 +20,17 @@ WebAPI Core 8 project introduces RESTFull application
 
 The Web application is available [here](./src/TechFxNet.Web)
 
+For further maintenance health check functionality was added.
+It returns a check of applicaton health in case of using database connection
+
+Response example of `GET /healthcheck` endpoint
+```json
+{"status":"Healthy","duration":"00:00:06.3952113","results":[{"system":"db","status":"Healthy","description":"Application database online","exception":null}]}
+```
+
+For flexability healthcheck can be splitted up by the check of certain problem area.
+As example, `GET /healthcheck/db` returns info about health of database only
+
 ## Tests
 For unit test project was chosen NUnit project and it uses AutoFixture framework for Moq and DI containers
 

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using TechFxNet.Application.Extensions;
 using TechFxNet.Infrastructure;
 using TechFxNet.Web.Middleware;
+using TechFxNet.Web.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,9 @@ builder.Services.AddSwaggerGen(c =>
 
     c.DocInclusionPredicate((name, api) => true);
 });
+builder.Services
+    .AddHealthChecks()
+    .AddCheck<ApplicationHealthCheck>("db", tags: new[] { "db" });
 
 var app = builder.Build();
 
@@ -57,7 +61,13 @@ await dbContext.Database.MigrateAsync();
 app.UseMiddleware<ApplicationExceptionHandlerMiddleware>();
 
 app.UseAuthorization();
-
 app.MapControllers();
+
+app.MapHealthChecks("HealthCheck", HealthCheckBuilder.CreateHealthCheck())
+    .AllowAnonymous();
+
+app.MapHealthChecks("HealthCheck/db",
+        HealthCheckBuilder.CreateHealthCheck(r => r.Tags.Contains("db")))
+    .AllowAnonymous();
 
 app.Run();
