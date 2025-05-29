@@ -2,10 +2,10 @@
 Technical Assignment
 
 ## Architecture
-The architecture of the solution was chosen as known as Clear Architecture which has to do with DDD arñhitecture.
-The arñhitecture could be introduced as a full DDD concept or service layouts by Martin Fauler.
+The architecture of the solution was chosen as known as Clear Architecture which has to do with DDD architecture.
+The architecture could be introduced as a full DDD concept or service layouts by Martin Fauler.
 
-The main concept of Clear Architecture are the following:
+The main concepts of Clear Architecture are the following:
 - Domain - domain area of entities and DTO (problem area)
 - Application - CQRS handlers for commands and queries
 - Infrastructure - repositories and database specific stuff
